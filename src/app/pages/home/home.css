@@ -1,0 +1,76 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
+  min-height: calc(100vh - 80px);
+  font-family: 'Arial Black', Gadget, sans-serif;
+}
+
+.welcome-card {
+  text-align: center;
+  margin: 0 auto 40px auto;
+  padding: 40px 50px;
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  max-width: 700px;
+  width: 100%;
+  color: #eee;
+  border: 1px solid #444;
+  animation: fadeInScale 1s ease-out;
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.welcome-card h1 {
+  color: #e0e0e0;
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  font-family: 'Arial Black', Gadget, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.welcome-card p {
+  color: #bbb;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto 20px auto;
+}
+
+app-carrusel {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+.carrusel-container {
+    border: 3px solid #6a0dad;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    background-color: #333;
+}
+
+.carousel-button {
+    background-color: #ff4500;
+    color: white;
+    border: 1px solid #8B0000;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.carousel-button:hover {
+    background-color: #cc3700;
+    transform: translateY(-2px);
+}

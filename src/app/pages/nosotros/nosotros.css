@@ -1,0 +1,134 @@
+/* src/app/pages/nosotros/nosotros.component.css */
+
+.nosotros-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    background: linear-gradient(to bottom, #2c2c2c, #1a1a1a);
+    padding: 30px;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nosotros-card {
+    background-color: #383838;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    padding: 40px;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    color: #f0f0f0;
+    border: 1px solid #4a4a4a;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.nosotros-title {
+    font-size: 2.8em;
+    color: #e0e0e0;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.nosotros-header-icon .main-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    display: block;
+    color: #ff8c00;
+    text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+}
+
+.nosotros-description {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #cccccc;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.feature-item {
+    background-color: #444444;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    border: 1px solid #555555;
+}
+
+.feature-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    background-color: #555555;
+}
+
+.feature-icon {
+    font-size: 2.8em;
+    margin-bottom: 15px;
+    display: block;
+    color: #ff8c00;
+}
+
+.feature-item p {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #f0f0f0;
+    margin: 0;
+}
+
+.contact-button {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 102, 0, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.contact-button:hover {
+    background-color: #e65c00;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 102, 0, 0.6);
+}
+
+.contact-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(255, 102, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .nosotros-card {
+        padding: 30px;
+    }
+    .nosotros-title {
+        font-size: 2.2em;
+    }
+    .nosotros-description {
+        font-size: 1em;
+    }
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
