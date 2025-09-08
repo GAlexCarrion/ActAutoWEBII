@@ -3,9 +3,9 @@
     <h1 class="auth-title">Regístrate</h1>
     <form class="auth-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="username">Nombre de Usuario</label>
-        <input type="text" id="username" formControlName="username" placeholder="Elige un nombre de usuario">
-        <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="error-message">
+        <label for="nombre_completo">Nombre de Usuario</label>
+        <input type="text" id="nombre_completo" formControlName="nombre_completo" placeholder="Elige un nombre de usuario">
+        <div *ngIf="registerForm.get('nombre_completo')?.invalid && registerForm.get('nombre_completo')?.touched" class="error-message">
           El nombre de usuario es requerido.
         </div>
       </div>

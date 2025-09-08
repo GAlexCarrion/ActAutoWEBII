@@ -1,0 +1,37 @@
+<div class="cart-container">
+  <div class="cart-card" *ngIf="products.length > 0">
+    <h1 class="cart-title">Mi Carrito de Compras</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Portada</th>
+          <th>Álbum</th>
+          <th>Artista</th>
+          <th>Precio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of products">
+          <td><img [src]="item.portada" [alt]="'Portada de ' + item.titulo" class="album-cover" width="60" height="60"></td>
+          <td>{{ item.titulo || 'Sin título' }}</td>
+          <td>{{ item.artista || 'Desconocido' }}</td>
+          <td>{{ item.precio | currency:'USD':'symbol' }}</td>
+          <td><button (click)="removeItem(item)">Eliminar</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="cart-summary">
+      <h4>Total: <span>{{ grandTotal | currency:'USD':'symbol' }}</span></h4>
+      <div class="buttons">
+        <button (click)="emptycart()">Vaciar Carrito</button>
+        <button (click)="comprarAhora()" [disabled]="isProcessing">Comprar Ahora</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-cart-message" *ngIf="products.length === 0">
+    <p>Tu carrito de compras está vacío.</p>
+    <a routerLink="/productos">Ir a la tienda</a>
+  </div>
+</div>

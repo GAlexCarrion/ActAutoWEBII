@@ -1,49 +1,33 @@
-// src/app/services/user.service.ts
-
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Importa HttpClient
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-// Define la interfaz para un usuario, incluyendo un 'id' opcional
-export interface User {
-  id?: number; // json-server añade un 'id' automáticamente
-  username: string;
-  email: string;
-  password: string;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  // URL base de tu json-server para la colección 'usuarios'
-  private apiUrl = 'http://localhost:3000/usuarios';
+  register(arg0: { nombre_completo: any; email: any; password: any; }) {
+    throw new Error('Method not implemented.');
+  }
+  private apiUrl = 'http://localhost:3000/api/usuarios'; // Ajusta la URL si es diferente
 
   constructor(private http: HttpClient) { }
 
   /**
-   * Obtiene todos los usuarios de la base de datos simulada.
-   * @returns Un Observable que emite un array de usuarios.
+   * Envía una solicitud POST para registrar a un nuevo usuario.
+   * @param userData Los datos del usuario a registrar.
+   * @returns Un Observable con la respuesta del servidor.
    */
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+  registerUser(userData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/registro`, userData);
   }
 
   /**
-   * Registra un nuevo usuario en la base de datos simulada.
-   * @param user El objeto User a registrar.
-   * @returns Un Observable que emite el usuario creado.
+   * Envía una solicitud POST para autenticar a un usuario.
+   * @param credentials Las credenciales del usuario (email y contraseña).
+   * @returns Un Observable con la respuesta del servidor.
    */
-  registerUser(user: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl, user);
+  loginUser(credentials: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, credentials);
   }
-
-  // Puedes añadir más métodos aquí si necesitas actualizar o eliminar usuarios en el futuro
-  // updateUser(id: number, user: User): Observable<User> {
-  //   return this.http.put<User>(`${this.apiUrl}/${id}`, user);
-  // }
-
-  // deleteUser(id: number): Observable<void> {
-  //   return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  // }
 }

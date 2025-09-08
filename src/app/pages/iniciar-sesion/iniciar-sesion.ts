@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { UserService, User } from '../../services/user'; // Importa el servicio de usuario y la interfaz User
+import { UserService } from '../../services/user'; // Importa el servicio de usuario
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -21,7 +21,6 @@ export class IniciarSesionComponent {
     private userService: UserService,
     private router: Router
   ) {
-    // Inicializa el formulario de inicio de sesión
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -30,37 +29,29 @@ export class IniciarSesionComponent {
 
   /**
    * Maneja el envío del formulario de inicio de sesión.
-   * Valida las credenciales contra los usuarios registrados en la base de datos simulada.
+   * Envía las credenciales al backend para su validación.
    */
   onSubmit(): void {
     this.errorMessage = null;
     this.successMessage = null;
 
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-
-      this.userService.getUsers().subscribe({
-        next: (users: User[]) => {
-          // Busca un usuario que coincida con el email y la contraseña
-          const foundUser = users.find(user => user.email === email && user.password === password);
-
-          if (foundUser) {
-            this.successMessage = '¡Inicio de sesión exitoso!';
-            console.log('Usuario autenticado:', foundUser);
-            // Aquí podrías guardar el estado de sesión (ej. en localStorage o un servicio de autenticación)
-            localStorage.setItem('currentUser', JSON.stringify(foundUser)); // Simulación de sesión
-            this.loginForm.reset();
-            // Redirigir al usuario a la página de inicio o a un dashboard
-            setTimeout(() => {
-              this.router.navigate(['/productos']); // Redirige a la página de productos
-            }, 1500);
-          } else {
-            this.errorMessage = 'Correo electrónico o contraseña incorrectos.';
-          }
+      this.userService.loginUser(this.loginForm.value).subscribe({
+        next: (response) => {
+          // La respuesta del backend indica un login exitoso
+          this.successMessage = response.message;
+          console.log('Usuario autenticado:', response.user);
+          // Opcionalmente, aquí puedes guardar el estado del usuario en un servicio
+          
+          this.loginForm.reset();
+          setTimeout(() => {
+            this.router.navigate(['/productos']); // Redirige a la página de productos
+          }, 1500);
         },
         error: (err) => {
-          console.error('Error al obtener usuarios:', err);
-          this.errorMessage = 'Error de conexión. Inténtalo de nuevo.';
+          // El backend envió un error (ej. credenciales inválidas)
+          console.error('Error de login:', err);
+          this.errorMessage = err.error.message || 'Error de conexión. Inténtalo de nuevo.';
         }
       });
     } else {
