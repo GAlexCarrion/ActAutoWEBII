@@ -6,46 +6,36 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CartService {
-  public cartItemList: any = [];
-  public productList = new BehaviorSubject<any>([]);
-  private apiUrl = 'http://localhost:3000/api'; // URL de tu API de backend
+  public cartItemList: any[] = [];
+  public productList = new BehaviorSubject<any[]>(this.cartItemList);
 
-  constructor(private http: HttpClient) { }
+  // Este servicio NO necesita una URL de API, su propósito es local.
 
-  getProducts() {
+  constructor() { }
+
+  getProducts(): Observable<any[]> {
     return this.productList.asObservable();
   }
 
   addtoCart(product: any) {
-    this.cartItemList.push(product);
-    this.productList.next(this.cartItemList);
-    this.getTotalPrice();
-    console.log(this.cartItemList);
+    const itemExists = this.cartItemList.find(item => item.id === product.id);
+    if (!itemExists) {
+      this.cartItemList.push(product);
+      this.productList.next([...this.cartItemList]);
+    }
   }
 
   getTotalPrice(): number {
-    let grandTotal = 0;
-    this.cartItemList.map((a: any) => {
-      grandTotal += a.precio;
-    });
-    return grandTotal;
+    return this.cartItemList.reduce((total, product) => total + Number(product.precio), 0);
   }
 
   removeCartItem(product: any) {
-    this.cartItemList.map((a: any, index: any) => {
-      if (product.id === a.id) {
-        this.cartItemList.splice(index, 1);
-      }
-    });
-    this.productList.next(this.cartItemList);
+    this.cartItemList = this.cartItemList.filter(item => item.id !== product.id);
+    this.productList.next([...this.cartItemList]);
   }
 
   removeAllCart() {
     this.cartItemList = [];
     this.productList.next(this.cartItemList);
-  }
-
-  crearPedido(pedido: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/pedidos`, pedido);
   }
 }

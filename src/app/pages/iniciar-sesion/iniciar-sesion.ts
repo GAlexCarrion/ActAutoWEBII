@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { UserService } from '../../services/user'; // Importa el servicio de usuario
+import { AuthService } from '../../services/auth'; // Importa el servicio de autenticación
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -18,7 +18,7 @@ export class IniciarSesionComponent {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -29,19 +29,19 @@ export class IniciarSesionComponent {
 
   /**
    * Maneja el envío del formulario de inicio de sesión.
-   * Envía las credenciales al backend para su validación.
+   * Envía las credenciales al backend para su validación y actualiza el estado de autenticación.
    */
   onSubmit(): void {
     this.errorMessage = null;
     this.successMessage = null;
 
     if (this.loginForm.valid) {
-      this.userService.loginUser(this.loginForm.value).subscribe({
+      this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           // La respuesta del backend indica un login exitoso
           this.successMessage = response.message;
-          console.log('Usuario autenticado:', response.user);
-          // Opcionalmente, aquí puedes guardar el estado del usuario en un servicio
+          console.log('Usuario autenticado:', response.usuario);
+          // El AuthService ya maneja el almacenamiento del estado del usuario
           
           this.loginForm.reset();
           setTimeout(() => {
