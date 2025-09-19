@@ -62,7 +62,7 @@ export class CartPage implements OnInit {
 
     const pedido = {
       usuario_id: currentUser.id_usuario,
-      total: this.grandTotal,
+      total_pedido: this.grandTotal,
       items: this.products.map(item => ({
         disco_id: item.id_disco,
         cantidad: 1,
